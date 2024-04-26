@@ -29,7 +29,7 @@ jobs:
           branch: dev
           tag_prefix: "v"
           major_pattern: "BREAKING CHANGE:"
-          minor_pattern: "feat:"
+          minor_pattern: "feat(\(.+\))?:"
           version_format: "v${major}.${minor}.${patch}"
 
       - name: Create Release
