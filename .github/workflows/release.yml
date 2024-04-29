@@ -31,7 +31,7 @@ jobs:
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: 'feat(\\(.+\\))?:'
           namespace: module_1
-          version_format: "v${major}.${minor}.${patch}-{namespace}"
+          version_format: "v${major}.${minor}.${patch}-${namespace}"
           change_path: "module_1"
 
       - name: Create Release
