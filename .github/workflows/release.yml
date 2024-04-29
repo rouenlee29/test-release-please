@@ -34,16 +34,8 @@ jobs:
           version_format: "v${major}.${minor}.${patch}-module_1"
           change_path: "module_1"
 
-      - name: Cancel if Unchanged
-        if: ${{ ! steps.versioning.outputs.changed }}
-        run: |
-          gh run cancel ${{ github.run_id }}
-          gh run watch ${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create Release
-        if: ${{ steps.versioning.outputs.changed }}
+        if: ${{ ! steps.versioning.outputs.changed }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
