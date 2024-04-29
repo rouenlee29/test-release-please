@@ -32,7 +32,7 @@ jobs:
           minor_pattern: 'feat(\\(.+\\))?:'
           namespace: module_1
           version_format: "v${major}.${minor}.${patch}-module_1"
-          change_path: "module_1/"
+          change_path: "src/module_1"
           debug: true
 
       - name: Print
