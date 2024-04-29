@@ -35,12 +35,6 @@ jobs:
           change_path: "module_1"
           debug: true
 
-      - name: Create Release
-        if: steps.versioning.outputs.changed == 'true'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version }}
-          prerelease: false
+      - name: Print
+        run: |
+          echo "changed: ${{ steps.versioning.outputs.changed }}"
