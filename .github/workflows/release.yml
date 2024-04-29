@@ -38,3 +38,12 @@ jobs:
       - name: Print
         run: |
           echo "changed: ${{ steps.versioning.outputs.changed }}"
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.versioning.outputs.version }}
+          release_name: ${{ steps.versioning.outputs.version }}
+          prerelease: false
