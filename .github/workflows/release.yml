@@ -48,9 +48,10 @@ jobs:
           change_path: "module_2"
           debug: true
 
-      # - name: Print
-      #   run: |
-      #     echo "changed : ${{ steps.module_1-versioning.outputs.changed }}"
+      - name: Print
+        run: |
+          echo "did module 1 change : ${{ steps.module_1-versioning.outputs.changed }}"
+          echo "did module 2 change : ${{ steps.module_2-versioning.outputs.changed }}"
 
       - name: Create Release
         if:  ${{ steps.module_1-versioning.outputs.changed }}
