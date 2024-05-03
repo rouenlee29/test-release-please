@@ -37,7 +37,7 @@ jobs:
 
       - name: Print
         run: |
-          echo "changed: ${{ steps.versioning.outputs.changed }}"
+          echo "changed : ${{ steps.versioning.outputs.changed }}"
 
       - name: Create Release
         if:  ${{ steps.versioning.outputs.changed }}
