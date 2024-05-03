@@ -54,7 +54,7 @@ jobs:
           echo "did module 2 change : ${{ steps.module_2-versioning.outputs.changed }}"
 
       - name: Create Release
-        if:  ${{ steps.module_1-versioning.outputs.changed }}
+        if:  steps.module_1-versioning.outputs.changed == 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -64,7 +64,7 @@ jobs:
           prerelease: false
 
       - name: Create Release
-        if:  ${{ steps.module_2-versioning.outputs.changed }}
+        if:  steps.module_2-versioning.outputs.changed == 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
