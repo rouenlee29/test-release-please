@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Semantic versioning
-        id: versioning
+        id: module_1-versioning
         uses: PaulHatch/semantic-version@v5.4.0
         with:
           branch: dev
@@ -32,19 +32,42 @@ jobs:
           minor_pattern: 'feat(\\(.+\\))?:'
           namespace: module_1
           version_format: "v${major}.${minor}.${patch}-module_1"
-          change_path: "src/module_1"
+          change_path: "module_1"
           debug: true
 
-      - name: Print
-        run: |
-          echo "changed : ${{ steps.versioning.outputs.changed }}"
+      - name: Semantic versioning
+        id: module_2-versioning
+        uses: PaulHatch/semantic-version@v5.4.0
+        with:
+          branch: dev
+          tag_prefix: "v"
+          major_pattern: "BREAKING CHANGE:"
+          minor_pattern: 'feat(\\(.+\\))?:'
+          namespace: module_2
+          version_format: "v${major}.${minor}.${patch}-module_2"
+          change_path: "module_2"
+          debug: true
+
+      # - name: Print
+      #   run: |
+      #     echo "changed : ${{ steps.module_1-versioning.outputs.changed }}"
 
       - name: Create Release
-        if:  ${{ steps.versioning.outputs.changed }}
+        if:  ${{ steps.module_1-versioning.outputs.changed }}
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version }}
+          tag_name: ${{ steps.module_1-versioning.outputs.version }}
+          release_name: ${{ steps.module_1-versioning.outputs.version }}
+          prerelease: false
+
+      - name: Create Release
+        if:  ${{ steps.module_2-versioning.outputs.changed }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.module_2-versioning.outputs.version }}
+          release_name: ${{ steps.module_2-versioning.outputs.version }}
           prerelease: false
